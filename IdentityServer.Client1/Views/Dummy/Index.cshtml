@@ -1,0 +1,27 @@
+﻿@model List<ResponseModel>
+@{
+	ViewData["Title"] = "Dummy Table Page";
+}
+
+<h1>Dummy List</h1>
+<table>
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Author</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@item.Id</td>
+				<td>@item.Name</td>
+				<td>@item.Description</td>
+				<td>@item.Author</td>
+			</tr>
+		}
+	</tbody>
+</table>

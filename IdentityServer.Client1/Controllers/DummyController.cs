@@ -1,5 +1,8 @@
 ﻿using IdentityModel.Client;
+using IdentityServer.Client1.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace IdentityServer.Client1.Controllers
 {
@@ -38,8 +41,9 @@ namespace IdentityServer.Client1.Controllers
                     var response = await client.GetAsync("https://localhost:44321/api/JunkData/GetJunkData");
                     if (response.IsSuccessStatusCode)
                     {
-                        var content = await response.Content.ReadAsStringAsync();   
-                        return View();
+                        var content = await response.Content.ReadAsStringAsync();   // reading content as json
+                        var model = JsonConvert.DeserializeObject<List<ResponseModel>>(content);
+                        return View(model);
                     }
                     else
                     {
