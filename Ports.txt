@@ -3,3 +3,6 @@ IdentityServer.API1 : http://localhost:55980
 IdentityServer.API2 : http://localhost:42075
 IdentityServer.Client1 : http://localhost:6270
 IdentityServer.Client2 : http://localhost:47823
+
+
+token endpoint => url/connect/token

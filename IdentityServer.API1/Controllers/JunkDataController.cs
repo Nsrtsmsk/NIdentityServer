@@ -8,8 +8,8 @@ namespace IdentityServer.API1.Controllers
     [ApiController]
     public class JunkDataController : Controller
     {
+        [Authorize(Policy = "ReadPolicy")]
         [HttpGet]
-        [Authorize]
         public IActionResult GetJunkData()
         {
             var JunkDatas = new List<JunkModel>()
@@ -33,5 +33,21 @@ namespace IdentityServer.API1.Controllers
 
             return Ok(JunkDatas);
         }
+
+        [Authorize(Policy ="UpdateOrCreate")]
+        [HttpPut]
+        public IActionResult UpdateJunk(int id)
+        {
+            return Ok($"id'si {id} olan data güncellendi.");
+        }
+
+
+        [Authorize(Policy = "UpdateOrCreate")]
+        [HttpPost]
+        public IActionResult CreateJunk(JunkModel model)
+        {
+            return Ok(model);
+        }
+
     }
 }

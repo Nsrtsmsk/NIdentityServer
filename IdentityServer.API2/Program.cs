@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opts =>
     {
-        opts.Authority = "http://localhost:44383";
+        opts.Authority = "https://localhost:44383";
         opts.Audience = "resource_api2";
 
     });

@@ -15,7 +15,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         opts.Audience = "resource_api1";
 
     });
+builder.Services.AddAuthorization(opts =>
+{
+    opts.AddPolicy("ReadPolicy", policy => { policy.RequireClaim("scope", "api1.read"); });
+    opts.AddPolicy("UpdateOrCreate", policy => { policy.RequireClaim("scope", new[] { "api1.update","api1.create" }); });
 
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

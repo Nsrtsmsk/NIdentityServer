@@ -14,7 +14,8 @@ namespace IdentityServer.Auth
                         "api1.read",
                         "api1.write",
                         "api1.update"
-                    }
+                    },
+                    ApiSecrets = new[]{new Secret("secretapi1".Sha256())} // passpoword and username for basic auth
                 },
                 new ApiResource("resource_api2") 
                 { Scopes =
@@ -22,7 +23,8 @@ namespace IdentityServer.Auth
                         "api2.read",
                         "api2.write",
                         "api2.update"
-                    }
+                    },
+                    ApiSecrets = new[]{new Secret("secretapi2".Sha256())} // passpoword and username for basic auth
                 }
             };
         }
@@ -50,7 +52,7 @@ namespace IdentityServer.Auth
                         new Secret("secret".Sha256())
                     },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    AllowedScopes = { "api1.read" }
+                    AllowedScopes = { "api1.read", "api1.write", "api1.update" }
                 }, 
                 new Client()
                 {
@@ -61,7 +63,7 @@ namespace IdentityServer.Auth
                         new Secret("secret".Sha256())
                     },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    AllowedScopes = { "api1.read", "api2.write", "api2.update" }
+                    AllowedScopes = { "api2.read", "api2.write", "api2.update" }
                 }
             };
         }
