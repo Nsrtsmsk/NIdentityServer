@@ -8,6 +8,8 @@ builder.Services.AddIdentityServer()
     .AddInMemoryApiResources(Config.GetAPIResource())
     .AddInMemoryApiScopes(Config.GetAPIScopes())
     .AddInMemoryClients(Config.GetClients())
+    .AddTestUsers(Config.GetUsers().ToList())
+    .AddInMemoryIdentityResources(Config.GetIdentityResources())
     .AddDeveloperSigningCredential();
 var app = builder.Build();
 
