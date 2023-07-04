@@ -1,4 +1,52 @@
 ﻿@{
-	ViewData["Title"] = "User Page";
+    ViewData["Title"] = "User Page";
+    @using Microsoft.AspNetCore.Authentication;
 }
 <h3>Kullanıcı adı ve şifre Client1 uygulaması için doğru girildi. Girilmeseydi bu ekrana yönlendirilmezdi.</h3>
+
+
+<h3>Claim dataları</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Claim type</th>
+            <th>Claim value</th>
+
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var item in User.Claims)
+        {
+            <tr>
+                <td>@item.Type</td>
+                <td>@item.Value</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+<h3>Authhentication dataları</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Auth key</th>
+            <th>Auth value</th>
+
+        </tr>
+
+    </thead>
+    <tbody>
+       @foreach (var item in (await Context.AuthenticateAsync()).Properties.Items) //httpcontext ile aynı şey.
+        {
+            <tr>
+                <td>@item.Key</td>
+                <td>@item.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>

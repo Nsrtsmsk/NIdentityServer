@@ -72,14 +72,14 @@ namespace IdentityServer.Auth
 				{
 					ClientId="Client1-Mvc",
 					ClientName = "Client1-Mvc APP Uygulaması",
-					RequirePkce =false,
+					RequirePkce =false, // serverside uygulamalarda gecerli. Secret key Tarayıcıya yüklenmesin diye yapılır. 
 					ClientSecrets =new[]
 					{
 						new Secret("secret".Sha256())
 					},
 					AllowedGrantTypes = GrantTypes.Hybrid,
-					RedirectUris = new List<string>{ "https://localhost:44375/signin-oidc"},
-					AllowedScopes = {IdentityServerConstants.StandardScopes.OpenId,IdentityServerConstants.StandardScopes.Profile}
+					RedirectUris = new List<string>{ "https://localhost:44375/signin-oidc"}, //Token alma işlemini gerçekleştiren URL'dir.Client1 StartUp da Oidc diye belirttiğimiz için.
+					AllowedScopes = {IdentityServerConstants.StandardScopes.OpenId,IdentityServerConstants.StandardScopes.Profile}//Bu Client hangi izinlere sahip olacak onu belirliyoruz.
 				}
 
 			};
