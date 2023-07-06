@@ -11,7 +11,5 @@ namespace IdentityServer.Client1.Controllers
 			
 			return View();
 		}
-
-
     }
 }
