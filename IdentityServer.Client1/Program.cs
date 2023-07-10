@@ -15,6 +15,10 @@ builder.Services.AddAuthentication(opts =>
     opts.ClientId = "Client1-Mvc";
     opts.ClientSecret = "secret";
     opts.ResponseType = "code id_token";
+    opts.GetClaimsFromUserInfoEndpoint = true; // userýnfo endpointinden gelen bilgileri set eder.
+    opts.SaveTokens = true; // access tokenlarý kaydeder.
+    opts.Scope.Add("api1.read");// api.read scope'unu da ver bana.
+    opts.Scope.Add("offline_access");// RefreshToken istiyoruz.
 });
 var app = builder.Build();
 

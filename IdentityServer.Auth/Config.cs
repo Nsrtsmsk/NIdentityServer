@@ -79,7 +79,12 @@ namespace IdentityServer.Auth
 					},
 					AllowedGrantTypes = GrantTypes.Hybrid,
 					RedirectUris = new List<string>{ "https://localhost:44375/signin-oidc"}, //Token alma işlemini gerçekleştiren URL'dir.Client1 StartUp da Oidc diye belirttiğimiz için.
-					AllowedScopes = {IdentityServerConstants.StandardScopes.OpenId,IdentityServerConstants.StandardScopes.Profile}//Bu Client hangi izinlere sahip olacak onu belirliyoruz.
+					AllowedScopes = {IdentityServerConstants.StandardScopes.OpenId,IdentityServerConstants.StandardScopes.Profile, "api1.read",IdentityServerConstants.StandardScopes.OfflineAccess },//Bu Client hangi izinlere sahip olacak onu belirliyoruz.
+					AccessTokenLifetime=DateTime.Now.AddHours(2).Second,
+                    AllowOfflineAccess = true,
+					RefreshTokenUsage=TokenUsage.ReUse,
+					AbsoluteRefreshTokenLifetime = DateTime.Now.AddDays(60).Second // 60 gün sonra tükenecek.
+
 				}
 
 			};
