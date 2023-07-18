@@ -1,8 +1,8 @@
-IdentityServer.Auth : http://localhost:44383 
-IdentityServer.API1 : http://localhost:44321
-IdentityServer.API2 : http://localhost:44363
-IdentityServer.Client1 : http://localhost:44375
-IdentityServer.Client2 : http://localhost:44329
+IdentityServer.Auth : https://localhost:44383 
+IdentityServer.API1 : https://localhost:44321
+IdentityServer.API2 : https://localhost:44363
+IdentityServer.Client1 : https://localhost:44375
+IdentityServer.Client2 : https://localhost:44329
 
 
 token endpoint => url/connect/token
