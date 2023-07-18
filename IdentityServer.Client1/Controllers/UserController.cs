@@ -34,7 +34,7 @@ namespace IdentityServer.Client1.Controllers
 		public async Task<IActionResult> GetRefreshToken()
 		{
 			HttpClient httpClient = new HttpClient();
-			var discoverData = await httpClient.GetDiscoveryDocumentAsync("https://localhost:44383");
+            DiscoveryDocumentResponse discoverData = await httpClient.GetDiscoveryDocumentAsync("https://localhost:44383");
             if (discoverData.IsError)
 			{
 				// some logging or error page direction
@@ -46,21 +46,21 @@ namespace IdentityServer.Client1.Controllers
 			refreshTokenRequest.RefreshToken = refreshToken;
 			refreshTokenRequest.Address = discoverData.TokenEndpoint;
 
-			var newToken = await httpClient.RequestRefreshTokenAsync(refreshTokenRequest);
-			if (newToken.IsError)
+            TokenResponse token = await httpClient.RequestRefreshTokenAsync(refreshTokenRequest);
+			if (token.IsError)
 			{
 				//some logging or error page direction
 			}
-			var tokens = new List<AuthenticationToken>() 
+            List<AuthenticationToken> tokens = new List<AuthenticationToken>() 
 			{ 
-				new AuthenticationToken{Name=OpenIdConnectParameterNames.IdToken,Value=newToken.IdentityToken},
-                new AuthenticationToken{Name=OpenIdConnectParameterNames.AccessToken,Value=newToken.AccessToken},
-                new AuthenticationToken{Name=OpenIdConnectParameterNames.RefreshToken,Value=newToken.RefreshToken},
-                new AuthenticationToken{Name=OpenIdConnectParameterNames.ExpiresIn,Value=DateTime.UtcNow.AddSeconds(newToken.ExpiresIn).ToString("o",CultureInfo.InvariantCulture)},
+				new AuthenticationToken{Name=OpenIdConnectParameterNames.IdToken,Value=token.IdentityToken},
+                new AuthenticationToken{Name=OpenIdConnectParameterNames.AccessToken,Value=token.AccessToken},
+                new AuthenticationToken{Name=OpenIdConnectParameterNames.RefreshToken,Value=token.RefreshToken},
+                new AuthenticationToken{Name=OpenIdConnectParameterNames.ExpiresIn,Value=DateTime.UtcNow.AddSeconds(token.ExpiresIn).ToString("o",CultureInfo.InvariantCulture)},
 
             };
-			var authenticationResult = await HttpContext.AuthenticateAsync();
-			var properties = authenticationResult.Properties;
+			AuthenticateResult authenticationResult = await HttpContext.AuthenticateAsync();
+            AuthenticationProperties? properties = authenticationResult.Properties;
 			properties.StoreTokens(tokens);
 			await HttpContext.SignInAsync("Cookies", authenticationResult.Principal, properties);
 

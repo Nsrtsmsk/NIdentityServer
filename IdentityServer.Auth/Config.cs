@@ -85,8 +85,8 @@ namespace IdentityServer.Auth
                     AllowOfflineAccess = true,
 					RefreshTokenUsage=TokenUsage.ReUse,
 					RefreshTokenExpiration = TokenExpiration.Absolute,
-					AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds // 60 gün sonra tükenecek.
-
+					AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds, // 60 gün sonra tükenecek.
+					RequireConsent=true  // onay ekranı xxx uygulaması senden xxx bilgilerini istiyor vs.
 				}
 
 			};
