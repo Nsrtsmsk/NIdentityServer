@@ -80,7 +80,7 @@ namespace IdentityServer.Auth
                     AllowedGrantTypes = GrantTypes.Hybrid,
                     RedirectUris = new List<string>{ "https://localhost:44375/signin-oidc"}, //Token alma işlemini gerçekleştiren URL'dir.Client1 StartUp da Oidc diye belirttiğimiz için.
 					PostLogoutRedirectUris=new List<string>{ "https://localhost:44375/signout-callback-oidc" },
-                    AllowedScopes = 
+                    AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,IdentityServerConstants.StandardScopes.Profile,
                         "api1.read",
@@ -93,8 +93,36 @@ namespace IdentityServer.Auth
                     RefreshTokenUsage=TokenUsage.ReUse,
                     RefreshTokenExpiration = TokenExpiration.Absolute,
                     AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds, // 60 gün sonra tükenecek.
-					RequireConsent=true  // onay ekranı xxx uygulaması senden xxx bilgilerini istiyor vs.
+					RequireConsent=false  // onay ekranı xxx uygulaması senden xxx bilgilerini istiyor vs.
+				},
+                 new Client()
+                {
+                    ClientId="Client2-Mvc",
+                    ClientName = "Client2-Mvc APP Uygulaması",
+                    RequirePkce =false, // serverside uygulamalarda gecerli. Secret key Tarayıcıya yüklenmesin diye yapılır. 
+					ClientSecrets =new[]
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    RedirectUris = new List<string>{ "https://localhost:44329/signin-oidc"}, //Token alma işlemini gerçekleştiren URL'dir.Client1 StartUp da Oidc diye belirttiğimiz için.
+					PostLogoutRedirectUris=new List<string>{ "https://localhost:44329/signout-callback-oidc" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,IdentityServerConstants.StandardScopes.Profile,
+                        "api2.read",
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "CountryAndCity",
+                        "Roles"
+                    },//Bu Client hangi izinlere sahip olacak onu belirliyoruz.
+					AccessTokenLifetime=2*60*60,
+                    AllowOfflineAccess = true,
+                    RefreshTokenUsage=TokenUsage.ReUse,
+                    RefreshTokenExpiration = TokenExpiration.Absolute,
+                    AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds, // 60 gün sonra tükenecek.
+					RequireConsent=false  // onay ekranı xxx uygulaması senden xxx bilgilerini istiyor vs.
 				}
+
 
             };
         }

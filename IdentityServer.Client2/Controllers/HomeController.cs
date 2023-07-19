@@ -1,4 +1,5 @@
 ﻿using IdentityServer.Client2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -27,6 +28,11 @@ namespace IdentityServer.Client2.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        [Authorize]
+        public IActionResult UserControl()
+        {
+            return View();  
         }
     }
 }
