@@ -67,5 +67,18 @@ namespace IdentityServer.Client1.Controllers
 
             return RedirectToAction("Index");	
 		}
+		[Authorize(Roles ="admin")]
+		public IActionResult AdminAction()
+		{ 
+
+			return View();
+		}
+        [Authorize(Roles = "customer")]
+        public IActionResult CustomerAction()
+        {
+
+            return View();
+        }
+
     }
 }

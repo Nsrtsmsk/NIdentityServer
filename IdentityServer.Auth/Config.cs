@@ -80,7 +80,14 @@ namespace IdentityServer.Auth
                     AllowedGrantTypes = GrantTypes.Hybrid,
                     RedirectUris = new List<string>{ "https://localhost:44375/signin-oidc"}, //Token alma işlemini gerçekleştiren URL'dir.Client1 StartUp da Oidc diye belirttiğimiz için.
 					PostLogoutRedirectUris=new List<string>{ "https://localhost:44375/signout-callback-oidc" },
-                    AllowedScopes = {IdentityServerConstants.StandardScopes.OpenId,IdentityServerConstants.StandardScopes.Profile, "api1.read",IdentityServerConstants.StandardScopes.OfflineAccess,"CountryAndCity" },//Bu Client hangi izinlere sahip olacak onu belirliyoruz.
+                    AllowedScopes = 
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,IdentityServerConstants.StandardScopes.Profile,
+                        "api1.read",
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "CountryAndCity",
+                        "Roles"
+                    },//Bu Client hangi izinlere sahip olacak onu belirliyoruz.
 					AccessTokenLifetime=2*60*60,
                     AllowOfflineAccess = true,
                     RefreshTokenUsage=TokenUsage.ReUse,
@@ -91,7 +98,6 @@ namespace IdentityServer.Auth
 
             };
         }
-
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
             return new List<IdentityResource>()
@@ -106,8 +112,19 @@ namespace IdentityServer.Auth
                 },
                 new IdentityResource()
                 {
-                    Name="CountryAndCity", DisplayName="County and City",Description="Kullanıcının ülke ve şehir bilgisi",UserClaims = new[]{"country","city"}
+                    Name="CountryAndCity",
+                    DisplayName="County and City",
+                    Description="Kullanıcının ülke ve şehir bilgisi",
+                    UserClaims = new[]{"country","city"}
+                },
+                new IdentityResource()
+                {
+                    Name="Roles",
+                    DisplayName="Roles",
+                    Description="Kullanıcı Rolleri",
+                    UserClaims = new[]{"role"}
                 }
+
             };
 
         }
@@ -123,6 +140,7 @@ namespace IdentityServer.Auth
                         new Claim("family_name","Simsek"),
                         new Claim("country","Türkiye"),
                         new Claim("city","Istanbul"),
+                        new Claim("role","admin")
                     }
                 },
 
@@ -134,6 +152,7 @@ namespace IdentityServer.Auth
                         new Claim("family_name","Simsek"),
                         new Claim("country","Türkiye"),
                         new Claim("city","Rize"),
+                         new Claim("role","customer")
 
                     }
                 }

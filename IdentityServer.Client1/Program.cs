@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
-
+using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,7 +9,11 @@ builder.Services.AddAuthentication(opts =>
     opts.DefaultScheme = "Cookies";
     opts.DefaultScheme = "oidc";
 })
-    .AddCookie("Cookies")
+    .AddCookie
+    (
+    "Cookies",
+    opts=>opts.AccessDeniedPath = "/Home/AccessDenied"
+    )
     .AddOpenIdConnect("oidc", opts =>
 {
     opts.SignInScheme = "Cookies";
@@ -22,10 +26,16 @@ builder.Services.AddAuthentication(opts =>
     opts.Scope.Add("api1.read");// api.read scope'unu da ver bana.
     opts.Scope.Add("offline_access");// RefreshToken istiyoruz.
     opts.Scope.Add("CountryAndCity");// manuel eklediðimiz scope u istiyoruz.
+    opts.Scope.Add("Roles");// manuel eklediðimiz scope u istiyoruz.
+
 
     opts.ClaimActions.MapUniqueJsonKey("country", "country");
     opts.ClaimActions.MapUniqueJsonKey("city", "city");
-
+    opts.ClaimActions.MapUniqueJsonKey("role","role");
+    opts.TokenValidationParameters = new TokenValidationParameters
+    {
+        RoleClaimType = "role"
+    };
 });
 var app = builder.Build();
 
