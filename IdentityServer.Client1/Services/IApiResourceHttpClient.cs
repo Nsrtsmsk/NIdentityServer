@@ -2,6 +2,6 @@
 {
     public interface IApiResourceHttpClient
     {
-        Task<HttpClient> GetHttpClientAsync();
+         Task<HttpClient> GetHttpClientAsync();
     }
 }

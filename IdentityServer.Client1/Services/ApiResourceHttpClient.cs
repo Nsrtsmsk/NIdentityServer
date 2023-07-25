@@ -6,9 +6,9 @@ namespace IdentityServer.Client1.Services
 {
     public class ApiResourceHttpClient : IApiResourceHttpClient
     {
-        private readonly HttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly HttpClient _httpClient;
-        public ApiResourceHttpClient(HttpContextAccessor httpContextAccessor, HttpClient httpClient)
+        public ApiResourceHttpClient(IHttpContextAccessor httpContextAccessor, HttpClient httpClient)
         {
             _httpContextAccessor = httpContextAccessor;
             _httpClient = httpClient;
