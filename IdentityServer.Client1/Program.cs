@@ -1,9 +1,14 @@
+using IdentityServer.Client1.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor(); // IAPIRESOURCEHTTPACCESSOR ÝÇÝN.
+
+builder.Services.AddScoped<IApiResourceHttpClient, ApiResourceHttpClient>();
+
 builder.Services.AddAuthentication(opts =>
 {
     opts.DefaultScheme = "Cookies";
