@@ -6,10 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-//builder.Services.AddHttpContextAccessor(); // IAPIRESOURCEHTTPACCESSOR ÝÇÝN.
-builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddHttpClient();
-builder.Services.AddScoped<IApiResourceHttpClient, ApiResourceHttpClient>();
+builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); //httpaccessor inject edilmek için türetildi.
+builder.Services.AddHttpClient(); // httpclient inject edilmek için türetildi.
+builder.Services.AddScoped<IApiResourceHttpClient, ApiResourceHttpClient>();// httpaccessor implamentation.
 builder.Services.AddAuthentication(opts =>
 {
     opts.DefaultScheme = "Cookies";
