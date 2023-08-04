@@ -1,17 +1,23 @@
-﻿using IdentityServer4.EntityFramework.DbContexts;
+﻿using AutoMapper;
+using IdentityServer.Auth.Mapping_Profile;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Entities;
 using IdentityServer4.EntityFramework.Mappers;
+using IdentityServer4.Models;
 
 namespace IdentityServer.Auth.Seeds
 {
     public static class SeedData
     {
+
         public static void Seed(ConfigurationDbContext context)
         { 
             if (!context.Clients.Any())
             {
                 foreach (var client in Config.GetClients()) 
                 {
-                    context.Clients.Add(client.ToEntity());
+                    var daaaa = WithProfile<MappingProfile>.Map<IdentityServer4.EntityFramework.Entities.Client>(client);
+                    context.Clients.Add(daaaa);
                 
                 }
             }
@@ -19,21 +25,21 @@ namespace IdentityServer.Auth.Seeds
             {
                 foreach (var apiresource in Config.GetAPIResource())
                 {
-                    context.ApiResources.Add(apiresource.ToEntity());
+                    context.ApiResources.Add(WithProfile<MappingProfile>.Map<IdentityServer4.EntityFramework.Entities.ApiResource>(apiresource));
                 }
             }
             if (!context.ApiScopes.Any())
             {
                 Config.GetAPIScopes().ToList().ForEach(s => 
                 { 
-                    context.ApiScopes.Add(s.ToEntity()); 
+                    context.ApiScopes.Add(WithProfile<MappingProfile>.Map<IdentityServer4.EntityFramework.Entities.ApiScope>(s)); 
                 });
             }
             if (!context.IdentityResources.Any())
             {
                 Config.GetIdentityResources().ToList().ForEach(s =>
                 {
-                    context.IdentityResources.Add(s.ToEntity());
+                    context.IdentityResources.Add(WithProfile<MappingProfile>.Map<IdentityServer4.EntityFramework.Entities.IdentityResource>(s));
                 });
             }
 

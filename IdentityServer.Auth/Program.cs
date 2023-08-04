@@ -4,15 +4,16 @@ using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using AutoMapper;
+using IdentityServer4.EntityFramework.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// **********entityframework implementation.************
+    // **********entityframework implementation.************
 var assembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
-
 //***********************
 //builder.Services.AddIdentityServer()
 //    .AddInMemoryApiResources(Config.GetAPIResource())
@@ -37,8 +38,8 @@ builder.Services.AddIdentityServer()
 
     }
     );
-    
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -60,6 +61,7 @@ app.MapControllerRoute(
     using (var serviceScope = app.Services.CreateScope())
     {
         var servis = serviceScope.ServiceProvider;
+    
         var context = servis.GetRequiredService<ConfigurationDbContext>();
         SeedData.Seed(context);
     }
