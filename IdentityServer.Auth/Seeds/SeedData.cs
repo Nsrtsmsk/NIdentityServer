@@ -18,8 +18,8 @@ namespace IdentityServer.Auth.Seeds
                 {
                     var daaaa = WithProfile<MappingProfile>.Map<IdentityServer4.EntityFramework.Entities.Client>(client);
                     context.Clients.Add(daaaa);
-                
                 }
+                context.SaveChanges();
             }
             if (!context.ApiResources.Any()) 
             {
@@ -27,6 +27,7 @@ namespace IdentityServer.Auth.Seeds
                 {
                     context.ApiResources.Add(WithProfile<MappingProfile>.Map<IdentityServer4.EntityFramework.Entities.ApiResource>(apiresource));
                 }
+                context.SaveChanges();
             }
             if (!context.ApiScopes.Any())
             {
@@ -34,6 +35,7 @@ namespace IdentityServer.Auth.Seeds
                 { 
                     context.ApiScopes.Add(WithProfile<MappingProfile>.Map<IdentityServer4.EntityFramework.Entities.ApiScope>(s)); 
                 });
+                context.SaveChanges();
             }
             if (!context.IdentityResources.Any())
             {
@@ -41,9 +43,8 @@ namespace IdentityServer.Auth.Seeds
                 {
                     context.IdentityResources.Add(WithProfile<MappingProfile>.Map<IdentityServer4.EntityFramework.Entities.IdentityResource>(s));
                 });
+                context.SaveChanges();
             }
-
-            context.SaveChanges();
         }
     }
 }
